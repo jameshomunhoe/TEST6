@@ -1,7 +1,8 @@
 #ifndef evaluate_H
 #define evaluate_H
 
-int evaluate(char *expression);
+int evaluate(char *expression, Stack *operatorStack, Stack *dataStack);
+
 void tryEvaluateOperatorsOnStackThenPush(Stack *operatorstack, 
 										 Stack *dataStack,
 										 OperatorToken *operator);

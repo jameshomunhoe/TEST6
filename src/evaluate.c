@@ -7,25 +7,79 @@
 #include <stdio.h>
 
 
-int evaluate(char *expression){}
+int evaluate(char *expression, Stack *operatorStack, Stack *dataStack){
 
-void tryEvaluateOperatorsOnStackThenPush(Stack *operatorstack, 
+	Tokenizer *tokenizer;
+	Token *token;
+	NumberToken *number;
+	OperatorToken *operator;
+	
+	tokenizer = tokenizerNew(expression);
+	
+	while(1){
+	number = (NumberToken *)nextToken(tokenizer);
+	if(number == NULL) 
+	Throw(ERR_NOT_DATA);
+	else if(number->type != NUMBER_TOKEN)
+	Throw(ERR_NOT_DATA);
+	else
+	push(dataStack,number);
+	
+	
+
+	operator = (OperatorToken *)nextToken(tokenizer);	
+	if(operator == NULL)
+	break;
+	else if(operator->type != OPERATOR_TOKEN)
+	Throw(ERR_NOT_OPERATOR);
+	else
+	tryEvaluateOperatorsOnStackThenPush(operatorStack,dataStack,operator);
+	}
+	evaluateAllOperatorsOnStack(operatorStack,dataStack);
+
+
+}
+
+void tryEvaluateOperatorsOnStackThenPush(Stack *operatorStack, 
 										 Stack *dataStack,
 										 OperatorToken *operator){
 
-										 
-										 
-										 
+	int interrupt = 0;
+	OperatorToken *toCheck;
+	
+	
+	while (interrupt!=1){
+		
+		toCheck	= pop(operatorStack);
+		if(toCheck == NULL){
+			push(operatorStack,operator);
+			interrupt = 1;
+		}
+		else if(operator->precedence > toCheck->precedence){
+			push(operatorStack,toCheck);
+			push(operatorStack,operator);
+			interrupt = 1;
+		}
+		else{
+			evaluateOperator(dataStack,toCheck);
+			interrupt = 0;
+		}
+	}	
 }
 										 
 										 
 void evaluateAllOperatorsOnStack(Stack *operatorStack, Stack *dataStack){
+	
+	OperatorToken *token;
+	
+	do{
+	token = pop(operatorStack);
+		if(token == NULL)
+			printf("bye");
+		else
+			evaluateOperator(dataStack,token);
+	}while( token != NULL);
 
-	OperatorToken *token = pop(operatorStack);
-	if( token != NULL)
-		evaluateOperator(dataStack,token);
-	else
-		printf("Bye");
 
 }
 

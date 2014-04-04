@@ -8,8 +8,7 @@
 void setUp(void){}
 void tearDown(void){}
 
-void test_evaluateOperator_should_multiple_2_numbers(void)
-{
+void test_evaluateOperator_should_multiple_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="*", .precedence = 100};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =3};
@@ -29,8 +28,7 @@ void test_evaluateOperator_should_multiple_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_divide_2_numbers(void)
-{
+void test_evaluateOperator_should_divide_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="/", .precedence = 100};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =3};
@@ -50,8 +48,7 @@ void test_evaluateOperator_should_divide_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_modulo_2_numbers(void)
-{
+void test_evaluateOperator_should_modulo_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="%", .precedence = 100};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =5};
@@ -71,8 +68,7 @@ void test_evaluateOperator_should_modulo_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_add_2_numbers(void)
-{
+void test_evaluateOperator_should_add_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="+", .precedence = 70};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =3};
@@ -92,8 +88,7 @@ void test_evaluateOperator_should_add_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_subtract_2_numbers(void)
-{
+void test_evaluateOperator_should_subtract_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="-", .precedence = 70};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =3};
@@ -113,8 +108,7 @@ void test_evaluateOperator_should_subtract_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_XOR_2_numbers(void)
-{
+void test_evaluateOperator_should_XOR_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="^", .precedence = 50};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =3};
@@ -134,8 +128,7 @@ void test_evaluateOperator_should_XOR_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_AND_2_numbers(void)
-{
+void test_evaluateOperator_should_AND_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="&", .precedence = 20};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =3};
@@ -155,8 +148,7 @@ void test_evaluateOperator_should_AND_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_OR_2_numbers(void)
-{
+void test_evaluateOperator_should_OR_2_numbers(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="|", .precedence = 10};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =15};
@@ -176,8 +168,7 @@ void test_evaluateOperator_should_OR_2_numbers(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_evaluateOperator_should_throw_error_not_operator(void)
-{
+void test_evaluateOperator_should_throw_error_not_operator(void){
 	Stack dataStack;
 	OperatorToken plus = {.type = OPERATOR_TOKEN, .name ="?", .precedence = 10};
 	NumberToken temp1 = {.type = NUMBER_TOKEN, .value =15};
@@ -197,7 +188,7 @@ void test_evaluateOperator_should_throw_error_not_operator(void)
 	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);}
 }
 
-void test_tryEvaluateOperatorOnStackThenPush_2_operator(){
+void test_evaluateAllOperatorsOnStack_2_operator(){
 
 	Stack dataStack;
 	Stack operatorStack;
@@ -215,18 +206,18 @@ void test_tryEvaluateOperatorOnStackThenPush_2_operator(){
 	createNumberToken_ExpectAndReturn(6,&answer1);
 	push_Expect(&dataStack, &answer1);
 	
-	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
-	
 	pop_ExpectAndReturn(&operatorStack,&plus);
 	pop_ExpectAndReturn(&dataStack,&answer1);
 	pop_ExpectAndReturn(&dataStack,&temp3);
 	createNumberToken_ExpectAndReturn(8,&answer2);
 	push_Expect(&dataStack, &answer2);
 		
+	pop_ExpectAndReturn(&operatorStack,NULL);
+	
 	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
 }
 
-void test_tryEvaluateOperatorOnStackThenPush_3_operator(){
+void test_evaluateAllOperatorsOnStack_3_operator(){
 
 	Stack dataStack;
 	Stack operatorStack;
@@ -247,26 +238,24 @@ void test_tryEvaluateOperatorOnStackThenPush_3_operator(){
 	createNumberToken_ExpectAndReturn(6,&answer1);
 	push_Expect(&dataStack, &answer1);
 	
-	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
-	
 	pop_ExpectAndReturn(&operatorStack,&plus);
 	pop_ExpectAndReturn(&dataStack,&answer1);
 	pop_ExpectAndReturn(&dataStack,&temp3);
 	createNumberToken_ExpectAndReturn(10,&answer2);
 	push_Expect(&dataStack, &answer2);
-		
-	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
 	
 	pop_ExpectAndReturn(&operatorStack,&xor);
 	pop_ExpectAndReturn(&dataStack,&answer2);
 	pop_ExpectAndReturn(&dataStack,&temp4);
 	createNumberToken_ExpectAndReturn(5,&answer3);
 	push_Expect(&dataStack, &answer3);
+	
+	pop_ExpectAndReturn(&operatorStack,NULL);
 		
 	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
 }
 
-void test_tryEvaluateOperatorOnStackThenPush_stop_at_null(){
+void test_evaluateAllOperatorsOnStack_stop_at_null(){
 
 	Stack dataStack;
 	Stack operatorStack;
@@ -287,15 +276,11 @@ void test_tryEvaluateOperatorOnStackThenPush_stop_at_null(){
 	createNumberToken_ExpectAndReturn(6,&answer1);
 	push_Expect(&dataStack, &answer1);
 	
-	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
-	
 	pop_ExpectAndReturn(&operatorStack,&plus);
 	pop_ExpectAndReturn(&dataStack,&answer1);
 	pop_ExpectAndReturn(&dataStack,&temp3);
 	createNumberToken_ExpectAndReturn(10,&answer2);
 	push_Expect(&dataStack, &answer2);
-		
-	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
 	
 	pop_ExpectAndReturn(&operatorStack,NULL);
 	//pop_ExpectAndReturn(&dataStack,&answer2);
@@ -304,4 +289,155 @@ void test_tryEvaluateOperatorOnStackThenPush_stop_at_null(){
 	//push_Expect(&dataStack, &answer3);
 		
 	evaluateAllOperatorsOnStack(&operatorStack,&dataStack);
+}
+
+void test_tryEvaluateOperatorsOnStackThenPush_should_add_to_opratorStack(){
+
+	Stack dataStack;
+	Stack operatorStack;
+	OperatorToken mul = {.type = OPERATOR_TOKEN, .name ="*", .precedence = 100};
+	OperatorToken plus = {.type = OPERATOR_TOKEN, .name="+", .precedence = 70}; 
+
+	pop_ExpectAndReturn(&operatorStack,&plus);
+	push_Expect(&operatorStack,&plus);
+	push_Expect(&operatorStack,&mul);		
+		
+	tryEvaluateOperatorsOnStackThenPush(&operatorStack,&dataStack,&mul);
+}
+
+// void test_tryEvaluateOperatorsOnStackThenPush_should_execute_once(){
+
+	// Stack dataStack;
+	// Stack operatorStack;
+	// OperatorToken mul = {.type = OPERATOR_TOKEN, .name ="*", .precedence = 100};
+	// OperatorToken plus = {.type = OPERATOR_TOKEN, .name="+", .precedence = 70}; 
+	// NumberToken temp1 = {.type = NUMBER_TOKEN, .value =2};
+	// NumberToken temp2 = {.type = NUMBER_TOKEN, .value =3};
+	// NumberToken answer1 = {.type = NUMBER_TOKEN, .value =6};
+
+	// pop_ExpectAndReturn(&operatorStack,&mul);
+	// pop_ExpectAndReturn(&dataStack,&temp1);	
+	// pop_ExpectAndReturn(&dataStack,&temp2);
+	// createNumberToken_ExpectAndReturn(6, &answer1);
+	// push_Expect(&dataStack,&answer1);
+		
+	// tryEvaluateOperatorsOnStackThenPush(&operatorStack,&dataStack,&plus);
+// }
+
+// void test_(){
+
+	// Tokenizer tokenizer;
+	// Stack dataStack;
+	// Stack operatorStack;
+	// int e;
+	
+	// OperatorToken operator1 = {.type = OPERATOR_TOKEN, .name = "+", .precedence = 70};
+	// NumberToken number1={.type = NUMBER_TOKEN, .value = 1};
+	// NumberToken number2={.type = NUMBER_TOKEN, .value = 2};
+	// NumberToken answer = {.type = NUMBER_TOKEN, .value =3};
+	
+	
+	// tokenizerNew_ExpectAndReturn("1+2",&tokenizer);
+	
+	// nextToken_ExpectAndReturn(&tokenizer,(Token *)&number1);
+	// push_Expect(&dataStack,&number1);
+	
+	// nextToken_ExpectAndReturn(&tokenizer,(Token *)&operator1);
+	// pop_ExpectAndReturn(&operatorStack,NULL);
+	// push_Expect(&operatorStack,&operator1);
+	
+	// nextToken_ExpectAndReturn(&tokenizer,(Token *)&number2);
+	// push_Expect(&dataStack,&number2);
+	
+	// nextToken_ExpectAndReturn(&tokenizer,NULL);
+	// pop_ExpectAndReturn(&operatorStack,&operator1);
+	// pop_ExpectAndReturn(&dataStack, &number1);
+	// pop_ExpectAndReturn(&dataStack, &number2);
+	// createNumberToken_ExpectAndReturn(3, &answer);
+	// push_Expect(&dataStack, &answer);
+	
+	// Try{
+	// evaluate("1+2",&operatorStack,&dataStack);}
+	// Catch(e){
+	// TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);
+	// }
+// }
+
+void test_evaluate_plus(){
+
+	Tokenizer tokenizer;
+	Stack dataStack;
+	Stack operatorStack;
+	int e;
+	
+	OperatorToken operator1 = {.type = OPERATOR_TOKEN, .name = "+", .precedence = 70};
+	NumberToken number1={.type = NUMBER_TOKEN, .value = 1};
+	NumberToken number2={.type = NUMBER_TOKEN, .value = 2};
+	
+	tokenizerNew_ExpectAndReturn("+",&tokenizer);
+	
+	nextToken_ExpectAndReturn(&tokenizer,(Token *)&operator1);
+	
+	Try{
+	evaluate("+",&operatorStack,&dataStack);}
+	Catch(e){
+	TEST_ASSERT_EQUAL(ERR_NOT_DATA,e);
+	}
+}
+
+void test_evaluate_38_space_39(){
+
+	Tokenizer tokenizer;
+	Stack dataStack;
+	Stack operatorStack;
+	int e;
+	
+	OperatorToken operator1 = {.type = OPERATOR_TOKEN, .name = "+", .precedence = 70};
+	NumberToken number1={.type = NUMBER_TOKEN, .value = 38};
+	NumberToken number2={.type = NUMBER_TOKEN, .value = 39};
+	
+	tokenizerNew_ExpectAndReturn("38 39",&tokenizer);
+	
+	nextToken_ExpectAndReturn(&tokenizer,(Token *)&number1);
+	push_Expect(&dataStack,&number1);
+	
+	nextToken_ExpectAndReturn(&tokenizer,(Token *)&number2);
+	
+	Try{
+	evaluate("38 39",&operatorStack,&dataStack);}
+	Catch(e){
+	TEST_ASSERT_EQUAL(ERR_NOT_OPERATOR,e);
+	}
+
+}
+
+void test_evaluate_40_plus_multiply(){
+
+	Tokenizer tokenizer;
+	Stack dataStack;
+	Stack operatorStack;
+	int e;
+	OperatorToken operator1 = {.type = OPERATOR_TOKEN, .name = "*", .precedence = 100};
+	OperatorToken operator2 = {.type = OPERATOR_TOKEN, .name = "+", .precedence = 70};
+	NumberToken number1={.type = NUMBER_TOKEN, .value = 40};
+	NumberToken number2={.type = NUMBER_TOKEN, .value = 39};
+	
+	tokenizerNew_ExpectAndReturn("40+*",&tokenizer);
+	
+	nextToken_ExpectAndReturn(&tokenizer,(Token *)&number1);
+	push_Expect(&dataStack,&number1);
+	
+	nextToken_ExpectAndReturn(&tokenizer,(Token *)&operator2);
+	pop_ExpectAndReturn(&operatorStack,NULL);
+	push_Expect(&operatorStack,&operator2);
+	
+	
+	nextToken_ExpectAndReturn(&tokenizer,(Token *)&operator1);
+	
+	Try{
+	evaluate("40+*",&operatorStack,&dataStack);}
+	Catch(e){
+	TEST_ASSERT_EQUAL(ERR_NOT_DATA,e);
+	}
+
 }
