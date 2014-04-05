@@ -44,25 +44,23 @@ void tryEvaluateOperatorsOnStackThenPush(Stack *operatorStack,
 										 Stack *dataStack,
 										 OperatorToken *operator){
 
-	int interrupt = 0;
 	OperatorToken *toCheck;
 	
 	
-	while (interrupt!=1){
+	while (1){
 		
 		toCheck	= pop(operatorStack);
 		if(toCheck == NULL){
 			push(operatorStack,operator);
-			interrupt = 1;
+			break;
 		}
 		else if(operator->precedence > toCheck->precedence){
 			push(operatorStack,toCheck);
 			push(operatorStack,operator);
-			interrupt = 1;
+			break;
 		}
 		else{
 			evaluateOperator(dataStack,toCheck);
-			interrupt = 0;
 		}
 	}	
 }
@@ -90,28 +88,28 @@ void evaluateOperator(Stack *dataStack, OperatorToken *operator){
 	NumberToken *left = pop(dataStack);
 	
 	if(strcmp("*",operator->name)==0){
-	result = createNumberToken(right->value * left->value);
+	result = createNumberToken(left->value * right->value);
 	}
 	else if(strcmp("/",operator->name)==0){
-	result = createNumberToken(right->value / left->value);
+	result = createNumberToken(left->value / right->value);
 	}
 	else if(strcmp("%",operator->name)==0){
-	result = createNumberToken(right->value % left->value);
+	result = createNumberToken(left->value % right->value);
 	}
 	else if(strcmp("+",operator->name)==0){
-	result = createNumberToken(right->value + left->value);
+	result = createNumberToken(left->value + right->value);
 	}
 	else if(strcmp("-",operator->name)==0){
-	result = createNumberToken(right->value - left->value);
+	result = createNumberToken(left->value - right->value);
 	}
 	else if(strcmp("^",operator->name)==0){
-	result = createNumberToken(right->value ^ left->value);
+	result = createNumberToken(left->value ^ right->value);
 	}
 	else if(strcmp("&",operator->name)==0){
-	result = createNumberToken(right->value & left->value);
+	result = createNumberToken(left->value & right->value);
 	}
 	else if(strcmp("|",operator->name)==0){
-	result = createNumberToken(right->value | left->value);
+	result = createNumberToken(left->value | right->value);
 	}
 	else
 		Throw(ERR_NOT_OPERATOR);
